@@ -1,38 +1,44 @@
-# Data Analytics Portfolio — Sanchay Raj
+# Student Depression & Lifestyle Factors
 
-Data Analyst / BI Analyst portfolio spanning Power BI, Tableau, Excel, and Python — built on real cloud data sources (SQL Server, Snowflake, AWS S3, Google BigQuery, Azure SQL) with a background in client-facing reporting, root-cause analysis, and quality auditing.
+A Tableau workbook exploring how everyday student lifestyle factors — academic pressure, financial stress, sleep, study hours, and study satisfaction — distribute across the student population, cleaned in SQL Server and published to Tableau Public.
 
-## 📊 Power BI Projects
+## Data Source & Cleaning
 
-| Project | Data Source | Highlights |
-|---|---|---|
-| [Prism Insurance](./powerbi/prism-insurance) | SQL Server | Flagship project — TextBlob sentiment pipeline, dark theme, published to Power BI Service |
-| [Loan Default](./powerbi/loan-default) | Power BI Dataflow | 255K rows, ~13 DAX measures incl. time intelligence, incremental refresh |
-| [Banking AI Project](./powerbi/banking-ai-project) | SQL Server | SQL-cleaned dirty data via production views, USERELATIONSHIP time intelligence, AI-generated narrative insights layer |
-| [Housing Market](./powerbi/housing-market) | Google BigQuery | Key Influencers AI visual, macroeconomic overlay on housing prices |
-| [AzureDatabase](./powerbi/azure-database) | Azure SQL | Custom visuals (Multi Info Cards, Scroller), DIVIDE-based DAX, published as a Power BI App |
-| [UPI Transactions](./powerbi/upi-transactions) | — | Bookmark-driven chart-type toggle UI, 10-slicer filter panel |
+- Cleaned in **SQL Server**, then loaded into Tableau via a **Tableau Desktop extract** (`.hyper` file, not a live connection) — chosen for performance and to make the published workbook self-contained
+- Published to **Tableau Public**
 
-## 📈 Tableau Projects
+## Worksheets
 
-| Project | Data Source | Highlights |
-|---|---|---|
-| [Renewable Energy Usage](./tableau/renewable-energy) | Snowflake + AWS S3 | Published to Tableau Cloud, income-tier-based transformation logic |
-| [Student Depression & Lifestyle Factors](./tableau/student-depression) | SQL Server | Distribution analysis across academic/lifestyle factors, published to Tableau Public |
-| [UPI Transaction Overview](./tableau/upi-overview) | — | Calculated-field age bucketing, geographic mapping, drill-down hierarchy |
+Each worksheet plots one lifestyle/academic factor against **student count**, using distinct mark types to differentiate the views at a glance:
 
-## 📗 Excel Projects
+| Worksheet | Factor (X-axis) | Metric | Mark Type |
+|---|---|---|---|
+| AP & SC | Academic Pressure | Student Count | Square |
+| FS & SC | Financial Stress | Student Count | Circle |
+| SD & SC | Sleep Duration | Student Count | Circle (with trend line) |
+| SH & SC | Study Hours | Student Count | Area |
+| SS & SC | Study Satisfaction | Student Count | Automatic (bar) |
 
-| Project | Highlights |
-|---|---|
-| [Production Dashboard](./excel/production-dashboard) | 4 linked PivotTables, 4 PivotCharts, 4 slicers on a 120-row manufacturing dataset |
+*("SC" = Student Count throughout — each sheet is a distribution of how many students fall at each level of that factor.)*
 
-## 🐍 Python Projects
+## Fields Used
 
-| Project | Highlights |
-|---|---|
-| [Google Play Store EDA](./python/google-play-store-eda) | Pandas-based cleaning + feature engineering on 10,841-row Kaggle dataset, business-question-driven analysis, correlation heatmap |
+- `Academic_Pressure`, `Financial_Stress`, `Sleep_Duration`, `Study_Hours`, `Study_Satisfaction` — the core lifestyle/academic variables
+- `Age_Group` — demographic breakdown
+- `Dietary_Habits` — lifestyle variable
+- `Family_History_of_Mental_Illness` (boolean), `Have_you_ever_had_suicidal_thoughts` (boolean) — background/context fields in the source dataset
+- `Index_Column` — used purely as a count key to derive student counts per group
 
-## Background
+## Design Notes
 
-3.5+ years in client-facing reporting, quality auditing, root-cause analysis, and KPI analysis at eClerx. This portfolio was built as a structured, end-to-end demonstration of the data analytics skill stack — from raw SQL/cloud-source cleaning through DAX/Tableau calculation logic to AI-assisted narrative insight generation — rather than isolated tool exercises.
+- Each worksheet uses a distinct color and mark shape (green squares, pink circles, gold circles with a trend line, purple area, red bars) so the five views read as a coherent but individually distinguishable set when placed together
+- The Sleep Duration view includes a trend line overlay to highlight the shape of the distribution rather than just raw counts
+
+## Tech Stack
+
+- **SQL Server** — source data cleaning
+- **Tableau Desktop** — extract-based workbook, published to **Tableau Public**
+
+## Note on Dataset
+
+This uses a public student mental-health/lifestyle dataset for portfolio and analytical-technique demonstration purposes (distribution analysis, extract-based publishing, multi-mark-type worksheet design) — it is not a clinical or diagnostic tool.
